@@ -1,10 +1,9 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  align-content: center;
+  color: #C3C5C6
 }
 
 code {
@@ -12,13 +11,32 @@ code {
     monospace;
 }
 
-input:required:invalid, input:focus:invalid {
-  background-image: url(/src/images/invalid.png);
-  background-position: right top;
-  background-repeat: no-repeat;
+
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: 150px;
+  grid-template-areas: "skate bmx e-sports moto";
+  align-items: center;
 }
-input:required:valid {
-  background-image: url(/src/images/valid.png);
-  background-position: right top;
-  background-repeat: no-repeat;
+
+.center {
+  text-align: center;
+  width:414px;
+  height: 736px;
+  border: 2px black solid;
 }
+
+.confirmation {
+  display: none;
+}
+
+.label{
+  display: block;
+}
+
+h1, h4 {
+  color: #2b2c2c
+}
+

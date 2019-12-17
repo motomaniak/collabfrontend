@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import skate from '../images/skate.png'
+import bmx from '../images/bmx.png'
+import moto from '../images/moto.png'
+import esports from '../images/e-sports.png'
+import logo from '../images/logo.png'
+
 
 export default class NewsletterContainer extends Component {
     state = {
@@ -23,14 +29,10 @@ export default class NewsletterContainer extends Component {
         for(let checkbox of checkboxes){
             checked.push(checkbox.id)
         }
-        if(first_name.length < 2){
-        
-        }else if (last_name.length < 2) {
-
-        }else if (Regex.test(first_name)){
-
+        if (Regex.test(first_name)){
+            alert(`First name can't contain special characters or numbers`)
         }else if (Regex.test(last_name)){
-
+            alert(`Last name can't contain special characters or numbers`)
         }else{
             this.setState({first_name:first_name, last_name:last_name, email:email, sports: checked})
             const options = {
@@ -41,9 +43,11 @@ export default class NewsletterContainer extends Component {
                 }
             }
             fetch(url, options)
-                .then(res=>res.json())
-                .then(res=>console.log(res))
-                .catch(err => console.log(err))
+                .then(res=>{
+                    if(res.status == 200){
+                        document.getElementById('confirmation').classList.toggle('confirmation')
+                    }
+                })
         }
     }
 
@@ -54,24 +58,42 @@ export default class NewsletterContainer extends Component {
 
     render() {
         return (
-            <div>
-                <img id='logo' alt='X-Games Logo' src='https://files.slack.com/files-pri/T0351JZQ0-FRFUHQ5R9/xgames_logo.png' />
+            <div className='center'>
+                <img id='logo' alt='X-Games Logo' src={logo} />
+                <h1>XGAMES INSIDER</h1>
+                <h4>Get early access to news and info</h4>
                 <form onSubmit={this.handleSubmit}>
                 Name<br/>
                 <input className='invalid' type='text' id='first_name' placeholder='First Name' required minlength='2'  autoFocus></input><br/>
                 <input className='invalid' type='text' id='last_name' placeholder='Last Name' required minlength='2'  autoFocus></input><br/>
                 E-mail<br/>
                 <input type='email' id='email' placeholder='Enter your email' required autoFocus></input><br/>
-                <img id='skate-img' src='https://files.slack.com/files-pri/T0351JZQ0-FRH4Y0M6V/image.png' />
-                <img src='https://files.slack.com/files-pri/T0351JZQ0-FREJYS690/image.png' />
-                <img src ='https://files.slack.com/files-tmb/T0351JZQ0-FRSUK3V0U-31f1600411/image_360.png' />
-                <img src='https://files.slack.com/files-pri/T0351JZQ0-FRTCKD14G/image.png' /><br/>
-                <input type='checkbox' name='skate' id='1' value='skate' />
-                <input type='checkbox' name='bmx' id='2' value='bmx' />
-                <input type='checkbox' name='e-sports' id='3' value='e-sports' />
-                <input type='checkbox' name='moto' id='4' value='Moto' />
-                <input type='submit' value='submit'></input>
-            </form>
+                <div>Check out our <a href='https://privacy.thewaltdisneycompany.com/en/current-privacy-policy/'>privacy policy here</a></div>
+                <div className="container">
+                    <div className="skate">
+                        <img id='skate-img' src={skate} />
+                        <label className="label">SKATE</label>
+                        <input type='checkbox' name='skate' id='1' value='skate' />
+                    </div>
+                    <div className="bmx">
+                        <img src={bmx} />
+                        <label className="label">BMX</label>
+                        <input type='checkbox' name='bmx' id='2' value='bmx' />
+                    </div>
+                    <div className="e-sports">
+                        <img src ={esports} />
+                        <label className="label">E-SPORTS</label>
+                        <input type='checkbox' name='e-sports' id='3' value='e-sports' />
+                    </div>
+                    <div className="moto">
+                        <img src={moto} /><br/>
+                        <label className="label">MOTO</label>
+                        <input type='checkbox' name='moto' id='4' value='Moto' />
+                    </div>
+                </div>
+                <input type='submit' value='submit'></input> 
+                </form>
+                <div id='confirmation' className='confirmation'>Congratulations! You're Now Signed Up!</div>
             </div>
         )
     }
